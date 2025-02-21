@@ -46,7 +46,7 @@ namespace Eto.Forms.Test
 				layout.AddRow(null);
 				grid = layout.FindChild<GridView>();
 				grid.Columns.Add(new GridColumn() { HeaderText = "序号" ,DataCell=new TextBoxCell() { Binding = Binding.Property<test,string>(n=>n.ID.ToString()) } });
-				grid.Columns.Add(new GridColumn() { HeaderText = "姓名", DataCell = new TextBoxCell() { Binding = Binding.Property<test, string>(n => n.Name) },Editable=true });
+				grid.Columns.Add(new GridColumn() { HeaderText = "姓名", DataCell = new TextBoxCell() { Binding = Binding.Property<test, string>(n => n.Name )}, Editable = true });
 				grid.Columns.Add(new GridColumn() { HeaderText = "年龄", DataCell = new TextBoxCell() { Binding = Binding.Property<test, string>(n => n.Age.ToString()) } });
 				grid.Columns.Add(new GridColumn() { HeaderText = "管理员", DataCell = new CheckBoxCell() { Binding = Binding.Property<test, bool?>(n => n.IsAdmin) },Editable=true });
 				dat = new List<test>();
