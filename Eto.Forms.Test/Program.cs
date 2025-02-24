@@ -1,9 +1,6 @@
 using Eto.Drawing;
-
+using Eto.GtkSharp.Forms.Controls;
 using Gtk;
-
-using Pango;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +15,24 @@ namespace Eto.Forms.Test
         [STAThread]
         static void Main()
         {
-            new Application(Eto.Platforms.Gtk).Run(new frm());
+			Eto.Style.Add< Label>("test", handler => {
+				handler.BackgroundColor= Color.FromRgb(0xff0000);
+			});
+			Eto.Style.Add< Button>("test2", handler => {
+				handler.BackgroundColor= Color.FromRgb(0xff0000);
+				handler.MouseEnter += (s, e) => {
+					var btn = (Button)s;
+					btn.TextColor = Color.FromRgb(0xff0000);
+				};
+				handler.MouseLeave += (s, e) => {
+					var btn = (Button)s;
+					btn.TextColor = Colors.Black;
+				};
+			});
+
+
+
+			new Application(Eto.Platforms.Gtk).Run(new frm());
         }
 		public class test { 
 			public int ID { get; set; }
@@ -46,7 +60,7 @@ namespace Eto.Forms.Test
 				//layout.AddSpace(true, true);
 				//layout.AddRow(new Panel() { Height = 20 });
 				layout.AddRow(new Label() { Text = "姓名" }, new TextBox() { Text = "test1", ID = "txt" });
-				layout.AddRow(new Label() { Text = "姓名" }, new TextBox() { Text = "test1" });
+				layout.AddRow(new Label() { Text = "姓名", Style = "test" }, new TextBox() { Text = "test1" });
 				layout.AddRow(null);
 
 				layout.BeginVertical();
@@ -54,7 +68,7 @@ namespace Eto.Forms.Test
 				b.Spacing = 5;b.Orientation = Orientation.Horizontal;
 				b.Items.Add(new Button() { Text = "添加" });
 				b.Items.Add(new Button() { Text = "删除" });
-				b.Items.Add(new Button() { Text = "保存" });
+				b.Items.Add(new Button() { Text = "保存", Style = "test2" });
 				layout.AddRow(b);
 				layout.EndBeginVertical();
 
@@ -65,7 +79,7 @@ namespace Eto.Forms.Test
 				layout.AddRow(l);
 				layout.EndBeginVertical();
 
-
+				layout.BeginVertical();
 				grid = layout.FindChild<GridView>();
 				grid.Columns.Add(new GridColumn() { HeaderText = "序号" ,DataCell=new TextBoxCell() { Binding = Binding.Property<test,string>(n=>n.ID.ToString()) } });
 				grid.Columns.Add(new GridColumn() { HeaderText = "姓名", DataCell = new TextBoxCell() { Binding = Binding.Property<test, string>(n => n.Name )}, Editable = true });
@@ -92,6 +106,8 @@ namespace Eto.Forms.Test
 					this.Title = ((TextBox)s).Text;
 				
 				};
+				//全部一起设置样式
+				layout.Children.OfType<Button>().ToList().ForEach(n => n.Style = "test2");
 			}
         }
     }
