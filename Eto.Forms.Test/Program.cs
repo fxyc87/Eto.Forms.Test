@@ -36,13 +36,15 @@ namespace Eto.Forms.Test
 				ClientSize = new Size(400, 300);
 
 				var layout = new DynamicLayout();
+				layout.DefaultSpacing = new Size(5, 5);
 				layout.Padding= new Padding(20,20,20,20);
 				layout.BeginVertical();
 				layout.AddRow(new GridView());
 				layout.EndBeginVertical();
 				//layout.AddSpace(true, true);
 				//layout.AddRow(new Panel() { Height = 20 });
-				layout.AddRow(new Label() { Text = "ÐÕÃû" }, new TextBox() { Text = "test1",ID="txt" });
+				layout.AddRow(new Label() { Text = "ÐÕÃû" }, new TextBox() { Text = "test1", ID = "txt" });
+				layout.AddRow(new Label() { Text = "ÐÕÃû" }, new TextBox() { Text = "test1" });
 				layout.AddRow(null);
 				grid = layout.FindChild<GridView>();
 				grid.Columns.Add(new GridColumn() { HeaderText = "ÐòºÅ" ,DataCell=new TextBoxCell() { Binding = Binding.Property<test,string>(n=>n.ID.ToString()) } });
