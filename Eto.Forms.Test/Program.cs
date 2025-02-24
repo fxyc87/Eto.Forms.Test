@@ -46,6 +46,16 @@ namespace Eto.Forms.Test
 				layout.AddRow(new Label() { Text = "姓名" }, new TextBox() { Text = "test1", ID = "txt" });
 				layout.AddRow(new Label() { Text = "姓名" }, new TextBox() { Text = "test1" });
 				layout.AddRow(null);
+
+				layout.BeginVertical();
+				var b = new StackLayout();
+				b.Spacing = 5;b.Orientation = Orientation.Horizontal;
+				b.Items.Add(new Button() { Text = "添加" });
+				b.Items.Add(new Button() { Text = "删除" });
+				b.Items.Add(new Button() { Text = "保存" });
+				layout.AddRow(b);
+				layout.EndBeginVertical();
+
 				grid = layout.FindChild<GridView>();
 				grid.Columns.Add(new GridColumn() { HeaderText = "序号" ,DataCell=new TextBoxCell() { Binding = Binding.Property<test,string>(n=>n.ID.ToString()) } });
 				grid.Columns.Add(new GridColumn() { HeaderText = "姓名", DataCell = new TextBoxCell() { Binding = Binding.Property<test, string>(n => n.Name )}, Editable = true });
