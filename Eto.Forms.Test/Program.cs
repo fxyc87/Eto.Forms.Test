@@ -2,6 +2,8 @@ using Eto.Drawing;
 
 using Gtk;
 
+using Pango;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +57,14 @@ namespace Eto.Forms.Test
 				b.Items.Add(new Button() { Text = "±£´æ" });
 				layout.AddRow(b);
 				layout.EndBeginVertical();
+
+				layout.BeginVertical();
+				var l = new PixelLayout();
+				l.Add(new Button() { Text = "Ìí¼Ó" }, 0, 0);
+				l.Add(new Button() { Text = "Ìí¼Ó" }, 20, 20);
+				layout.AddRow(l);
+				layout.EndBeginVertical();
+
 
 				grid = layout.FindChild<GridView>();
 				grid.Columns.Add(new GridColumn() { HeaderText = "ÐòºÅ" ,DataCell=new TextBoxCell() { Binding = Binding.Property<test,string>(n=>n.ID.ToString()) } });
